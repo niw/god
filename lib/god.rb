@@ -1,8 +1,5 @@
 $:.unshift File.dirname(__FILE__)     # For use/testing when no gem is installed
 
-# rubygems
-require 'rubygems'
-
 # core
 require 'stringio'
 require 'fileutils'
@@ -534,6 +531,9 @@ module God
       watches = self.pending_watches.dup
       self.pending_watches.clear
       self.pending_watch_states.clear
+
+      # make sure we quit capturing when we're done
+      LOG.finish_capture
     rescue Exception => e
       # don't ever let running_load take down god
       errors << LOG.finish_capture

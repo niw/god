@@ -104,7 +104,7 @@ module God
     ###########################################################################
     
     def action(a, c = nil)
-      if Thread.current != self.driver.thread
+      if !self.driver.in_driver_context?
         # called from outside Driver
         
         # send an async message to Driver
@@ -177,6 +177,7 @@ module God
     
     def unregister!
       God.registry.remove(@process)
+      super
     end
   end
   
